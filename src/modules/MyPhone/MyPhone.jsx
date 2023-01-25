@@ -19,7 +19,10 @@ class MyPhone extends Component {
 addContact = (e) => {
     e.preventDefault();
     this.setState(prevState => {
-        const { name, number, contacts} = prevState;
+        const { name, number, contacts } = prevState;
+        if (this.isDublicate(name, number)) {
+            return alert(`${name} is already ixist`)
+        }
         const newContact = {
             id: nanoid(),
             name,
@@ -43,8 +46,18 @@ handleChange = ({target}) => {
         [name]: value,
     })
 }
+
+isDublicate(name, number) {
+    const normName = name.toLowerCase();
+    const normNumber = number.toLowerCase();
+    const { contacts } = this.state;
+    const persone = contacts.find(({ name, number }) => {
+        return (name.toLowerCase() === normName && number.toLowerCase() === normNumber)
+    })
+    return Boolean(persone)
+}   
     
-    render() {
+render() {
         const { addContact, handleChange } = this;
         const { contacts, name, number } = this.state;
         const phone = contacts.map(({ id, name, number }) =>
