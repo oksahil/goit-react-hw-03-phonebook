@@ -9,7 +9,7 @@ class MainMenu extends Component {
     }
 
     state = {
-        activeIndex: 0,
+        activeIndex: 1,
     }
 
 handelClick = (ind) => {
