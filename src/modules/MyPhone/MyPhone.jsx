@@ -61,6 +61,9 @@ isDublicate(name, number) {
 
 filterContacts() {
     const { filter, contacts } = this.state;
+    if (!filter) {
+        return contacts;
+    }
     const normFilter = filter.toLowerCase();
     const result = contacts.filter(({ name, number }) => {
         return (name.toLowerCase().includes(normFilter) || number.toLowerCase().includes(normFilter))
