@@ -1,26 +1,27 @@
 import { Component } from "react";
 import PropTypes from "prop-types";
 
+import inititalState from "./initialState";
 import Button from "shared/components/Button/Button";
 
 import css from "./myPhoneForm.module.css";
 
 class MyPhoneForm extends Component {
-    state = {
-        name: "",
-        number: "",
-    }   
+    state = { ...inititalState } 
 
 handleSubmit = (e) => {
     e.preventDefault();
     const { onSubmit } = this.props;
-    onSubmit({ ...this.state });
-    this.setState({
-        name: "",
-        number: "",
-    })
+    const resultSubmit = onSubmit({ ...this.state });
+        if(resultSubmit) {
+            this.reset();
+        }
 }
 
+reset() {
+        this.setState({...inititalState})
+}    
+    
 handleChange = ({target}) => {
     const { name, value } = target;
     this.setState({

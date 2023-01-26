@@ -6,13 +6,12 @@ import ContactsList from "./ContactsList/ContactsList";
 import MyPhoneFilter from "./MyPhoneFilter/MyPhoneFilter";
 
 import Message from "shared/components/Message/Message";
-import contacts from "./contacts";
 
 import css from "./myPhone.module.css";
 
 class MyPhone extends Component {
     state = {
-        contacts:[...contacts],
+        contacts:[],
         filter: "",
     }
 
@@ -24,9 +23,9 @@ componentDidMount() {
     }
 }
 
-componentDidUpdate(prevState) {
+componentDidUpdate(prevProps, prevState) {
     const { contacts } = this.state;
-    if (prevState.contact.length !== contacts.length) {
+    if (prevState.contacts.length !== contacts.length) {
         localStorage.setItem("my-phonebook", JSON.stringify(contacts));
     }
 }
