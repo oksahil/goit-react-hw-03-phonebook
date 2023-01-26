@@ -18,11 +18,13 @@ class MyPhone extends Component {
 
 addContact = (e) => {
     e.preventDefault();
-    this.setState(prevState => {
-        const { name, number, contacts } = prevState;
+    const { name, number } = this.state;
         if (this.isDublicate(name, number)) {
             return alert(`${name} is already ixist`)
         }
+    this.setState(prevState => {
+        const { name, number, contacts } = prevState;
+
         const newContact = {
             id: nanoid(),
             name,
@@ -56,11 +58,21 @@ isDublicate(name, number) {
     })
     return Boolean(persone)
 }   
+
+filterContacts() {
+    const { filter, contacts } = this.state;
+    const normFilter = filter.toLowerCase();
+    const result = contacts.filter(({ name, number }) => {
+        return (name.toLowerCase().includes(normFilter) || number.toLowerCase().includes(normFilter))
+    })
+    return result;
+}    
     
 render() {
-        const { addContact, handleChange } = this;
-        const { contacts, name, number } = this.state;
-        const phone = contacts.map(({ id, name, number }) =>
+    const { addContact, handleChange } = this;
+    const { name, number } = this.state;
+    const contacts = this.filterContacts();
+    const phone = contacts.map(({ id, name, number }) =>
             <li key={id} className={css.textItem}>
                 {name}       {number}
                 <Button onClick={() => this.removeContact(id) }type="button">delete</Button>
@@ -104,9 +116,10 @@ render() {
                       
                             <div className={css.formInput}>
                                 <label className={css.labelText}>Find contacts by name</label>
-                                <input
-                                    type="text"
-                                    name="filter"
+                            <input
+                                onChange={handleChange}
+                                type="text"
+                                name="filter"
                             />
                             <ul>
                                 {phone}
