@@ -16,6 +16,21 @@ class MyPhone extends Component {
         filter: "",
     }
 
+componentDidMount() {
+    const contacts = JSON.parse(localStorage.getItem("my-phonebook"));
+    if (contacts?.length) //contacts && contacts.length
+    {
+        this.setState({ contacts });
+    }
+}
+
+componentDidUpdate(prevState) {
+    const { contacts } = this.state;
+    if (prevState.contact.length !== contacts.length) {
+        localStorage.setItem("my-phonebook", JSON.stringify(contacts));
+    }
+}
+
 addContact = ({name, number}) => {
         if (this.isDublicate(name, number)) {
             return alert(`${name} is already ixist`)
