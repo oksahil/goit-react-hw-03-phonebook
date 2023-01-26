@@ -32,7 +32,8 @@ componentDidUpdate(prevProps, prevState) {
 
 addContact = ({name, number}) => {
         if (this.isDublicate(name, number)) {
-            return alert(`${name} is already ixist`)
+            alert(`${name} is already ixist`);
+            return false;
         }
     this.setState(prevState => {
         const { contacts } = prevState;
@@ -44,6 +45,7 @@ addContact = ({name, number}) => {
         }
         return {contacts: [newContact, ...contacts]}
     })
+    return true;
 }
 
 removeContact = (id) => {

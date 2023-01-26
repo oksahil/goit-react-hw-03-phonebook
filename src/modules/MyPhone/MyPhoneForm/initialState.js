@@ -1,6 +1,6 @@
 const inititalState = {
-    title: "",
-    author: "",
+    name: "",
+    number: "",
 }
 
 export default inititalState;
