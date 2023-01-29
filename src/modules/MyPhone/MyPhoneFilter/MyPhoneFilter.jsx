@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 
 import css from "./myPhoneFilter.module.css"
 
-const MyPhoneFilter = ({ handleChange }) => {
+const MyPhoneFilter = ({ handleChange, filter }) => {
     return (
         <div className={css.formInput}>
             <label className={css.labelText}>Find contacts by name</label>
@@ -10,6 +10,7 @@ const MyPhoneFilter = ({ handleChange }) => {
                 onChange={handleChange}
                 type="text"
                 name="filter"
+                value={filter}
             />
         </div>
     )
