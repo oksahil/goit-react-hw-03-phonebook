@@ -32,7 +32,7 @@ componentDidUpdate(prevProps, prevState) {
 
 addContact = ({name, number}) => {
         if (this.isDublicate(name, number)) {
-            alert(`${name} is already ixist`);
+            alert(`The person or number is already added to the phonebook.`);
             return false;
         }
     this.setState(prevState => {
@@ -64,7 +64,7 @@ isDublicate(name, number) {
     const normNumber = number.toLowerCase();
     const { contacts } = this.state;
     const person = contacts.find(({ name, number }) => {
-        return (name.toLowerCase() === normName && number.toLowerCase() === normNumber)
+        return (name.toLowerCase() === normName || number.toLowerCase() === normNumber)
     })
     return Boolean(person)
 }   
